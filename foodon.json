@@ -1,0 +1,133 @@
+{
+    "response": {
+        "docs": [
+            {
+                "iri": "http://purl.obolibrary.org/obo/FOODON_03306347",
+                "ontology_name": "foodon",
+                "ontology_prefix": "FOODON",
+                "short_form": "FOODON_03306347",
+                "description": [
+                    "SIREN DB annotation:\n* has quality 'whole, shape achieved by forming, thickness <0.3 cm.' (http://purl.obolibrary.org/obo/FOODON_03430153)\n* derives from 'seed (anatomical part)' (http://purl.obolibrary.org/obo/FOODON_03420155)\n        "
+                ],
+                "label": "pasta",
+                "obo_id": "FOODON:03306347",
+                "type": "class"
+            },
+            {
+                "iri": "http://purl.obolibrary.org/obo/FOODON_03400815",
+                "ontology_name": "foodon",
+                "ontology_prefix": "FOODON",
+                "short_form": "FOODON_03400815",
+                "description": [
+                    "Eurocode-2 group 06.30. Pasta can be either dried or fresh, and as main-dish (pasta asciutta) or miniature pasta (e.g. to add to soups). Although pasta is usually made from durum wheat flour, it can also be made from wholemeal flour or buckwheat flour. Noodles contain egg unless specifically referred to as plain noodles. Asian transparent noodles can made from a wide range of flours, many of them non-cereal.",
+                    "LanguaL curation note: Renamed from *PASTA (EUROFIR)* (LanguaL 2010)."
+                ],
+                "label": "pasta and similar products (eurofir)",
+                "obo_id": "FOODON:03400815",
+                "type": "class"
+            },
+            {
+                "iri": "http://purl.obolibrary.org/obo/FOODON_03301004",
+                "ontology_name": "foodon",
+                "ontology_prefix": "FOODON",
+                "short_form": "FOODON_03301004",
+                "description": [
+                    "Macaroni is a variety of dry pasta traditionally shaped and produced in various shapes and sizes."
+                ],
+                "label": "macaroni pasta",
+                "obo_id": "FOODON:03301004",
+                "type": "class"
+            },
+            {
+                "iri": "http://purl.obolibrary.org/obo/FOODON_03304595",
+                "ontology_name": "foodon",
+                "ontology_prefix": "FOODON",
+                "short_form": "FOODON_03304595",
+                "description": [
+                    "SIREN DB annotation:\n* has quality 'whole, shape achieved by forming' (http://purl.obolibrary.org/obo/FOODON_03430147)\n* derives from 'seed, skin removed, germ removed (endosperm)' (http://purl.obolibrary.org/obo/FOODON_03420208)\n* formed as a result of 'food filling process' (http://purl.obolibrary.org/obo/FOODON_03460207)\n* has substance added  'food added' (http://purl.obolibrary.org/obo/FOODON_03460180)\n        "
+                ],
+                "label": "ravioli pasta",
+                "obo_id": "FOODON:03304595",
+                "type": "class"
+            },
+            {
+                "iri": "http://purl.obolibrary.org/obo/FOODON_03306311",
+                "ontology_name": "foodon",
+                "ontology_prefix": "FOODON",
+                "short_form": "FOODON_03306311",
+                "description": [
+                    "SIREN DB annotation:\n* has quality 'whole, shape achieved by forming, thickness <0.3 cm.' (http://purl.obolibrary.org/obo/FOODON_03430153)\n* derives from 'seed (anatomical part)' (http://purl.obolibrary.org/obo/FOODON_03420155)\n* formed as a result of 'preservation by freezing' (http://purl.obolibrary.org/obo/FOODON_03470136)\n        "
+                ],
+                "label": "pasta (frozen)",
+                "obo_id": "FOODON:03306311",
+                "type": "class"
+            },
+            {
+                "iri": "http://purl.obolibrary.org/obo/FOODON_03306312",
+                "ontology_name": "foodon",
+                "ontology_prefix": "FOODON",
+                "short_form": "FOODON_03306312",
+                "description": [
+                    "SIREN DB annotation:\n* has quality 'whole, shape achieved by forming, thickness <0.3 cm.' (http://purl.obolibrary.org/obo/FOODON_03430153)\n* has quality 'not heat-treated' (http://purl.obolibrary.org/obo/FOODON_03440003)\n* derives from 'seed (anatomical part)' (http://purl.obolibrary.org/obo/FOODON_03420155)\n* formed as a result of 'water removal process' (http://purl.obolibrary.org/obo/FOODON_03460138)\n* formed as a result of 'preservation by dehydration or drying' (http://purl.obolibrary.org/obo/FOODON_03470116)\n        "
+                ],
+                "label": "pasta (dried)",
+                "obo_id": "FOODON:03306312",
+                "type": "class"
+            },
+            {
+                "iri": "http://purl.obolibrary.org/obo/FOODON_03306338",
+                "ontology_name": "foodon",
+                "ontology_prefix": "FOODON",
+                "short_form": "FOODON_03306338",
+                "description": [
+                    "SIREN DB annotation:\n* surrounded by 'can' (http://purl.obolibrary.org/obo/FOODON_03490204)\n* has quality 'whole, shape achieved by forming, thickness <0.3 cm.' (http://purl.obolibrary.org/obo/FOODON_03430153)\n* has quality 'fully heat-treated' (http://purl.obolibrary.org/obo/FOODON_03440014)\n* derives from 'seed (anatomical part)' (http://purl.obolibrary.org/obo/FOODON_03420155)\n* formed as a result of 'sterilization by heating' (http://purl.obolibrary.org/obo/FOODON_03470123)\n* immersed in  'packed in edible medium' (http://purl.obolibrary.org/obo/FOODON_03480011)\n        "
+                ],
+                "label": "pasta (canned)",
+                "obo_id": "FOODON:03306338",
+                "type": "class"
+            },
+            {
+                "iri": "http://purl.obolibrary.org/obo/FOODON_03310187",
+                "ontology_name": "foodon",
+                "ontology_prefix": "FOODON",
+                "short_form": "FOODON_03310187",
+                "description": [
+                    "SIREN DB annotation:\n* has quality 'whole, shape achieved by forming, thickness <0.3 cm.' (http://purl.obolibrary.org/obo/FOODON_03430153)\n* has quality 'not heat-treated' (http://purl.obolibrary.org/obo/FOODON_03440003)\n* derives from 'seed, skin removed, germ removed (endosperm)' (http://purl.obolibrary.org/obo/FOODON_03420208)\n* formed as a result of 'water removal process' (http://purl.obolibrary.org/obo/FOODON_03460138)\n* formed as a result of 'preservation by dehydration or drying' (http://purl.obolibrary.org/obo/FOODON_03470116)\n* has substance added  http://purl.obolibrary.org/obo/FOODON_03460212\n        "
+                ],
+                "label": "spinach pasta",
+                "obo_id": "FOODON:03310187",
+                "type": "class"
+            },
+            {
+                "iri": "http://purl.obolibrary.org/obo/FOODON_03317419",
+                "ontology_name": "foodon",
+                "ontology_prefix": "FOODON",
+                "short_form": "FOODON_03317419",
+                "description": [
+                    "SIREN DB annotation:\n* has quality 'whole, shape achieved by forming, thickness <0.3 cm.' (http://purl.obolibrary.org/obo/FOODON_03430153)\n* derives from 'seed (anatomical part)' (http://purl.obolibrary.org/obo/FOODON_03420155)\n        "
+                ],
+                "label": "pasta (fresh)",
+                "obo_id": "FOODON:03317419",
+                "type": "class"
+            },
+            {
+                "iri": "http://purl.obolibrary.org/obo/FOODON_03601047",
+                "ontology_name": "foodon",
+                "ontology_prefix": "FOODON",
+                "short_form": "FOODON_03601047",
+                "description": [
+                    "A pasta dish, which is american in origin and is made with lightly saut\u00e9ed fresh vegetables."
+                ],
+                "label": "pasta primavera",
+                "obo_id": "FOODON:03601047",
+                "type": "class"
+            }
+        ],
+        "numFound": 318,
+        "start": 0
+    },
+    "responseHeader": {
+        "QTime": 0,
+        "status": 0
+    }
+}
