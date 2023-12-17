@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="http://www.w3.org/2002/07/owl#topObjectProperty">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#verhackert">
+    <rdf:type rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Dish"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N95b8d7f363b54cfc95ef73f5f7f332f5">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#hasIngredient"/>
+    <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Ingredient"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#moussaka">
+    <rdf:type rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Dish"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#hasIngredient">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    <rdfs:domain rdf:nodeID="Nb95b9bb843034d4992438627de5e6a98"/>
+    <rdfs:domain rdf:nodeID="N1762d77563a646aba949d07f0aa04db1"/>
+    <rdfs:range rdf:nodeID="N95b8d7f363b54cfc95ef73f5f7f332f5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#jambalaya">
+    <rdf:type rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Dish"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nb95b9bb843034d4992438627de5e6a98">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#hasIngredient"/>
+    <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Dish"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Ingredient">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#cordon_bleu_(dish)">
+    <rdf:type rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Dish"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#sashimi">
+    <rdf:type rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Dish"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Dish">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Ingredient"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#nachos">
+    <rdf:type rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Dish"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#caesar_salad">
+    <rdf:type rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Dish"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#baklava">
+    <rdf:type rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Dish"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N1762d77563a646aba949d07f0aa04db1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#hasIngredient"/>
+    <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Ingredient"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#sushi">
+    <rdf:type rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Dish"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#chicken_curry">
+    <rdf:type rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Dish"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#cheesecake">
+    <rdf:type rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Dish"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#kimchi">
+    <rdf:type rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Dish"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#tiramisu">
+    <rdf:type rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Dish"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#goulash">
+    <rdf:type rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Dish"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#ice_cream">
+    <rdf:type rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Dish"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#bolognese_sauce">
+    <rdf:type rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Dish"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#pancakes">
+    <rdf:type rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Dish"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#biryani">
+    <rdf:type rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Dish"/>
+  </rdf:Description>
+</rdf:RDF>

@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl/"
+     xml:base="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:food_ontology="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#">
+
+    <owl:Ontology rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl"/>
+
+    <!-- Object Properties -->
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#hasIngredient">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#hasIngredient"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Dish"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#hasIngredient"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Ingredient"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#hasIngredient"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Ingredient"/>
+            </owl:Restriction>
+        </rdfs:range>
+    </owl:ObjectProperty>
+
+    <!-- Object Property for Top Object Property -->
+    <owl:ObjectProperty rdf:about="http://www.w3.org/2002/07/owl#topObjectProperty">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    </owl:ObjectProperty>
+
+    <!-- Classes -->
+    <owl:Class rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Dish">
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Ingredient"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#Ingredient"/>
+</rdf:RDF>
