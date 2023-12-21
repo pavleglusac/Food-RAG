@@ -10,22 +10,16 @@ food_ontology = Namespace("http://www.semanticweb.org/nevena/ontologies/2023/11/
 sparql_query = """
     PREFIX food: <http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#>
 
-    SELECT ?subclass ?individual
+    SELECT ?subclass
     WHERE {
-      ?subclass rdf:type/rdfs:subClassOf* food:Pizza.
-      ?individual rdf:type ?subclass.
+      ?subclass rdf:type owl:Class.
+      ?subclass rdfs:subClassOf food:Pizza.
     }
 """
 
 query = prepareQuery(sparql_query, initNs={"rdf": RDF, "rdfs": RDFS, "owl": OWL, "food": food_ontology})
 results = g.query(query)
 
-current_subclass = None
-print("Instances of Pizza Subclasses:")
+print("Subclasses of Pizza:")
 for row in results:
-    if current_subclass != row.subclass:
-        if current_subclass is not None:
-            print()  # Separate output for each subclass
-        print(f"Subclass: {row.subclass}")
-        current_subclass = row.subclass
-    print(f"  Individual: {row.individual}")
+    print(row.subclass)
