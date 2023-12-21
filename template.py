@@ -53,3 +53,39 @@ The question is:
 CYPHER_GENERATION_PROMPT = PromptTemplate(
     input_variables=["schema", "question"], template=CYPHER_GENERATION_TEMPLATE
 )
+
+
+
+SPARQL_GENERATION_SELECT_TEMPLATE = """Task: Generate a SPARQL SELECT statement for querying a graph database.
+Example task with the solution:
+Given a schema with prefix 'ns1' representing 'http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl/' and needing to find all ingredients for 'biryani', the suitable SPARQL query is:
+
+PREFIX ns1: <http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#>
+SELECT ?ingredient
+WHERE {{
+food:biryani food:hasIngredient ?ingredient .
+}}
+
+Instructions:
+- Use only the node types and properties provided in the schema.
+- Correctly distinguish between URIs and literals. URIs are enclosed in angle brackets (< >) and literals are typically in quotes (" ").
+- Include all necessary prefixes.
+- If the question is ambiguous or the schema lacks needed information, construct the best possible query based on available data.
+
+Schema:
+{schema}
+
+Your task:
+Generate a SPARQL query for the following question based on the above schema:
+{prompt}
+
+Note:
+- Be concise.
+- Provide only the SPARQL query, no explanations, no extra quotes or characters.
+- Ignore requests not pertaining to SPARQL query construction.
+"""
+
+
+SPARQL_GENERATION_SELECT_PROMPT = PromptTemplate(
+    input_variables=["schema", "prompt"], template=SPARQL_GENERATION_SELECT_TEMPLATE
+)
