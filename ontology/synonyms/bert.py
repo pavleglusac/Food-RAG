@@ -1,28 +1,34 @@
-from gensim.models import KeyedVectors
+from sentence_transformers import SentenceTransformer, util
+import csv
 
-model_path = 'files\\gensim-data\\word2vec-google-news-300\\word2vec-google-news-300.gz'
-word2vec_model = KeyedVectors.load_word2vec_format(model_path, binary=True, limit=500000)
-
-def compare_similarity(word1, word2):
-    try:
-        similarity_score = word2vec_model.similarity(word1, word2)
-        return similarity_score
-    except KeyError as e:
-        # print(f"Word not found in the vocabulary: {e}")
-        return 0
-
+model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
 
 dict = {'chicken curry': ' ["onion", "tomato", "ginger", "garlic", "tomato puree", "chilli peppers", "turmeric", "cumin", "coriander", "cinnamon", "cardamom"]', 'ice cream': ' ["milk", "cream", "sweetener", "sugar", "alternative", "spice", "cocoa", "vanilla", "fruit", "stabilizers"]', 'moussaka': ' ["eggplant", "potato", "ground meat", "egg", "flour"]', 'kimchi': ' ["gochugaru", "spring onions", "garlic", "ginger", "jeotgal"]', 'sashimi': ' ["soy sauce"]', 'nachos': ' ["corn-", "wheat-based", "beef", "pork", "chicken", "seafood", "vegetables", "chesse"]', 'jambalaya': ' ["sausage", "pork", "chicken", "seafood", "crawfish", "shrimp", "onion", "celery", "green bell pepper", "okra", "carrots", "tomatoes", "corn", "chilis", "garlic"]', 'biryani': ' ["rice", "meat", "chicken", "beef", "goat", "lamb", "prawn", "fish", "spices", "vegetables"]', 'cordon bleu (dish)': ' ["meat", "cheese", "pork", "ham", "chicken"]', 'baklava': ' ["filo pastry", "nuts"]', 'verhackert': ' ["chopped bacon", "minced garlic", "salt", "sugar"]', 'cheesecake': ' ["cheese", "eggs", "sugar", "crushed cookies", "graham crackers", "pastry", "sponge cake"]', 'caesar salad': ' ["romaine lettuce", "lemon juice", "olive oil", "egg", "worcestershire sauce", "anchovies", "garlic", "dijon mustard", "parmesan cheese", "black pepper"]', 'pancakes': ' ["starch-based batter", "eggs", "milk", "butter", "oil"]', 'tiramisu': ' ["ladyfingers", "savoiardi", "coffee", "eggs", "sugar", "mascarpone", "cocoa"]', 'goulash': ' ["paprika"]', 'tomato puree': ' ["tomatoes"]', 'chilli peppers': ' []', 'cumin': ' []', 'coriander': ' []', 'cinnamon': ' []', 'cardamom': ' ["cardamom", "cardamon", "cardamum"]', 'cream': ' []', 'sweetener': ' []', 'sugar': ' ["sugar", "glucose", "fructose", "galactose", "sucrose", "lactose", "maltose"]', 'spice': ' []', 'vanilla': ' []', 'fruit': ' []', 'eggplant': ' []', 'potato': ' []', 'egg': ' []', 'gochugaru': ' []',
 'spring onions': ' ["allium", "garlic", "shallot", "leek", "chive", "chinese onions"]', 'jeotgal': ' []', 'soy sauce': ' ["soybeans", "roasted grain", "brine", "aspergillus oryzae", "aspergillus sojae molds"]', 'corn-': ' []', 'wheat-based': ' ["wheat", "barley malt"]', 'beef': ' []', 'seafood': ' []', 'vegetables': ' []', 'chesse': ' ["proteins", "fat", "milk", "enzymes", "rennet", "bacterial enzymes"]', 'sausage': ' ["ground meat", "salt", "spices", "flavourings", "grains", "breadcrumbs"]', 'crawfish': ' []', 'shrimp': ' []', 'celery': ' []', 'green bell pepper': ' []', 'tomatoes': ' []', 'rice': ' []', 'goat': ' []', 'fish': ' []', 'cheese': ' []', 'filo pastry': ' ["oil", "butter"]', 'minced garlic': ' []', 'salt': ' []', 'eggs': ' []', 'graham crackers': ' ["graham flour"]', 'pastry': ' ["flour", "water", "shortening", "butter", "lard", "sugar", "milk", "baking powder", "eggs"]', 'romaine lettuce': ' ["romaine", "cos lettuce", "lactuca sativa l. var. longifolia", "lettuce"]', 'lemon juice': ' []', 'worcestershire sauce': ' []', 'anchovies': ' []', 'dijon mustard': ' ["vinegar", "verjuice", "unripe grapes", "mustard seeds", "white wine", "water", "salt"]', 'parmesan cheese': ' ["cows\' milk"]', 'oil': ' []', 'ladyfingers': ' ["egg"]', 'savoiardi': ' ["egg", "sugar syrup", "liqueur", "coffee", "espresso"]', 'coffee': ' ["roasted coffee beans", "caffeine", "coffea plant\'s fruits", "unroasted green coffee beans"]', 'mascarpone': ' ["cream", "whey"]', 'paprika': ' ["capsicum annuum varietals", "chili peppers"]', 'cilantro': ' []', 'essential oil': ' []', 'cinnamaldehyde': ' []', 'glucose': ' []', 'fructose': ' []', 'galactose': ' []', 'lactose': ' []', 'allium': ' []', 'shallot': ' []', 'leek': ' []', 'chive': ' []',
 'chinese onions': ' []', 'soybeans': ' []', 'roasted grain': ' []', 'brine': ' []', 'aspergillus oryzae': ' []', 'aspergillus sojae molds': ' ["water", "salt"]', 'barley malt': ' ["sugar", "maltodextrines"]', 'proteins': ' []', 'fat': ' []', 'enzymes': ' []', 'bacterial enzymes': ' []', 'flavourings': ' ["sugars"]', 'grains': ' []', 'breadcrumbs': ' ["bread", "dry breads"]', 'shortening': ' ["shortening", "fat", "lard"]', 'lard': ' []', 'cos lettuce': ' []', 'vinegar': ' ["wine"]', 'verjuice': ' ["unripe grapes", "crab-apples", "herbs", "spices"]', 'mustard seeds': ' ["mustard seeds"]', "cows' milk": ' []', 'hydrocarbons': ' []', 'sugar syrup': ' ["inverted sugar syrup", "invert syrup", "invert sugar", "simple syrup", "sugar syrup", "sugar water", "bar syrup", "sucrose inversion", "table sugar"]', 'liqueur': ' ["grains", "fruits", "vegetables", "sugar"]', 'espresso': ' []', 'roasted coffee beans': ' ["coffee bean", "fruit", "pip", "coffee cherry", "cherry"]', 'unroasted green coffee beans': ' ["coffee bean", "pip"]', 'whey': ' []', 'capsicum annuum': ' ["paprika", "chili pepper", "jalape\\u00f1o", "cayenne", "bell pepper"]', 'chili peppers': ' []', 'cardamon': ' ["elettaria", "amomum"]', 'cardamum': ' ["cardamom"]', 'maltodextrines': ' ["maltodextrin"]', 'sugars': ' []', 'bread': ' []', 'wine': ' []', 'crab-apples': ' []', 'herbs': ' []', 'inverted sugar syrup': ' ["inverted sugar syrup", "invert syrup", "invert sugar", "simple syrup", "sugar syrup", "sugar water", "bar syrup", "sucrose inversion", "sucrose", "table sugar"]', 'invert syrup': ' ["inverted sugar syrup", "invert syrup", "invert sugar", "simple syrup", "sugar syrup", "sugar water", "bar syrup", "sucrose inversion", "sucrose", "table sugar"]', 'invert sugar': ' ["invert sugar"]',
 'simple syrup': ' ["inverted sugar syrup", "invert syrup", "invert sugar", "simple syrup", "sugar syrup", "sugar water", "bar syrup", "sucrose inversion", "glucose", "fructose", "table sugar"]', 'sugar water': ' ["inverted sugar syrup", "invert syrup", "invert sugar", "simple syrup", "sugar syrup", "sugar water", "bar syrup", "sucrose inversion", "sucrose", "table sugar"]', 'bar syrup': ' ["inverted sugar syrup", "invert syrup", "invert sugar", "simple syrup", "sugar syrup", "sugar water", "bar syrup", "sucrose inversion", "sucrose", "table sugar"]', 'sucrose inversion': ' ["sucrose", "table sugar"]', 'table sugar': ' ["molasses", "sucrose"]', 'fruits': ' []', 'caffeine': ' []', "coffea plant's fruits": ' ["coffee beans"]', 'coffee bean': ' ["coffee bean"]', 'chili pepper': ' ["capsaicin"]', 'jalapeño': ' []', 'cayenne': ' []', 'capsaicin': ' ["capsaicin", "capsaicinoids"]', 'capsaicinoids': ' []', 'elettaria': ' []', 'amomum': ' []', 'maltodextrin': ' ["maltodextrin"]', 'molasses': ' []', 'coffee cherry': ' []', 'cherry': ' []', 'coffee beans': ' ["coffee bean", "pip"]', '8-methyl-n-vanillyl-6-nonenamide': ' []', 'monosaccharides': ' ["monosaccharides", "simple sugars", "carbohydrates"]', 'disaccharide sucrose': ' []', 'sugarcane molasses': ' ["molasses"]', 'berries': ' []', 'simple sugars': ' []', 'carbohydrates': ' []', 'sugarcane': ' ["sucrose"]', 'sugar beet juice': ' ["sucrose"]'}
+
+
 ingredient_set = set(dict.keys())
-list = list(ingredient_set)
+sentences = list(ingredient_set)
 
-for i in range(len(list) - 1):
-    for j in range(i + 1, len(list)):
-        similarity_score = compare_similarity(list[i], list[j])
-        if similarity_score > 0.68:
-            print(list[i], list[j], similarity_score)
+embedding = model.encode(sentences, convert_to_tensor=False)
 
+# print(embedding.shape) ovaj je radio dobro
+cosine_scores = util.cos_sim(embedding, embedding)
 
+l = []
+for i, v1 in enumerate(sentences):
+    for j, v2 in enumerate(sentences):
+        if i >= j:
+            continue
+        similarity = cosine_scores[i][j].item()
+        if similarity > 0.82:
+            l.append((v1, v2))
+
+csv_file_path = '../files/bert_synonyms.csv'
+
+with open(csv_file_path, 'w', newline='') as csvfile:
+    csv_writer = csv.writer(csvfile)
+    for row in l:
+        csv_writer.writerow(row)
