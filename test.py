@@ -24,6 +24,16 @@ ns1:biryani ns1:hasIngredient ?ingredient .
 }
 """
 
+query = """
+PREFIX ns1: <http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#>
+SELECT ?ingredient (COUNT(?dish) AS ?count)
+WHERE {
+?dish ns1:hasIngredient ?ingredient .
+}
+GROUP BY ?ingredient
+ORDER BY DESC(?count)
+LIMIT 5
+"""
 # Execute the query 
 results = graph.query(query)
 # show the results

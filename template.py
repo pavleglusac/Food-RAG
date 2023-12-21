@@ -63,7 +63,7 @@ Given a schema with prefix 'ns1' representing 'http://www.semanticweb.org/nevena
 PREFIX ns1: <http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#>
 SELECT ?ingredient
 WHERE {{
-food:biryani food:hasIngredient ?ingredient .
+ns1:biryani ns1:hasIngredient ?ingredient .
 }}
 
 Instructions:
@@ -71,6 +71,7 @@ Instructions:
 - Correctly distinguish between URIs and literals. URIs are enclosed in angle brackets (< >) and literals are typically in quotes (" ").
 - Include all necessary prefixes.
 - If the question is ambiguous or the schema lacks needed information, construct the best possible query based on available data.
+- Do not always use biryani as the dish name, the dish name can be any dish in the schema, or whatever the question asks for.
 
 Schema:
 {schema}
