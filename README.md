@@ -14,7 +14,7 @@ Zatim smo ubacili nekoliko poznatih jela i tako kreiran fajl sačuvali pod naziv
 Sledeći korak bio je popunjavanje ontologije sastojcima već umetnutih jela. Za tu svrhu smo koristili Python biblioteku **_wikipedia_**. Ona nudi jednostavnu funkciju *summary(article, sentences)* za sumarizaciju. Prvi parametar je naziv članka na vikipediji. Drugi je broj rečenica koji želimo da koristimo za sumarizaciju. U našem slučaju, odabrali smo vrednost 3, jer se u člancima o hrani na vikipediji sastojci obično pojavljuju u 3 najbitnije rečenice. Kada smo doblili kratku reprezentaciju članka, bilo je potrebno ekstrahovati podatke iz te reprezentacije. To smo postigli upotrebom **UNI-NER** (*Universal Named Entity Recognition*) modela. To je manji jezički model (7 milijardi parametara) namenjen za prepoznavanje imenovanih entiteta. Funkcioniše tako što mu se prosledi tekst i naziv entiteta koji se ekstrahuje. U našem slučaju, prosleđeni tekst bio je sumarizovani članak, a naziv entiteta koji se pronalazi bio je *“Ingredient”*. Na slici XX vidmo primer kako UNI-NER funkcioniše:
 
 ![Slika XX - primer upotrebe UNI-NER-a](Uniner.png)
-
+Slika XX - primer upotrebe UNI-NER-a
 
 Nismo imali dovoljno memorije da pokrenemo ovaj model lokalno, te smo ga, umesto toga,  pokrenuli na **_Google Colab_**-u. Nakon što smo ekstrahovali podatke o svakom jelu iz liste, **rekurzivno** smo pozivali funkcije ekstrakcije nad dobijenim sastojcima i taj proces ponavljali dok god postoje podaci o sastojcima. Na taj način smo za svako jelo dobili graf sastojaka. Ubacivanjem tih podataka u postojeću ontologiju dobili smo fajl *ingredients.rdf*.
 
@@ -23,7 +23,7 @@ Nakon što smo ubacili podatke u ontologiju, uvideli smo da naša ontologija ne 
 S obzirom na to da su podaci o jelima većinski bili automatski generisani i ponekad nepotpuni, odlučili smo da u ontologiju detaljno razradimo jednu vrstu hrane. Opredelili smo se za picu. Krierali smo taksonomiju pica i deo nje je prikazan na slici XX:
 
 ![Slika XX - deo taksonomije o picama](onto.png)
-
+Slika XX - deo taksonomije o picama
 
 ## Upiti
 
