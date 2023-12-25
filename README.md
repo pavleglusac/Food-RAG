@@ -16,6 +16,7 @@ Sledeći korak bio je popunjavanje ontologije sastojcima već umetnutih jela. Za
 ![Slika XX - primer upotrebe UNI-NER-a](Uniner.png)
 Slika XX - primer upotrebe UNI-NER-a
 
+
 Nismo imali dovoljno memorije da pokrenemo ovaj model lokalno, te smo ga, umesto toga,  pokrenuli na **_Google Colab_**-u. Nakon što smo ekstrahovali podatke o svakom jelu iz liste, **rekurzivno** smo pozivali funkcije ekstrakcije nad dobijenim sastojcima i taj proces ponavljali dok god postoje podaci o sastojcima. Na taj način smo za svako jelo dobili graf sastojaka. Ubacivanjem tih podataka u postojeću ontologiju dobili smo fajl *ingredients.rdf*.
 
 Nakon što smo ubacili podatke u ontologiju, uvideli smo da naša ontologija ne prepoznaje sinonime. Na primer, sastojci *“sugar”*, *“sugars”* i *“table sugar”* su prepoznavani kao različiti iako predstavljaju isti sastojak. Taj problem smo najpre pokušali da rešimo korištenjem samo **_“word2vec”_** modela, ali on nije dao dovoljno dobre rezultate. Nakon toga smo pokrenuli **_BERT_** *sentence-transformer* za računanje sličnosti:  *“paraphrase-multilingual-MiniLM-L12-v2”*. Prepoznate sinonime sačuvali smo u fajlu *bert_synonyms.csv*. Ipak, ni ovi sinonimi nisu bili savršeno prepoznati, pa smo ih ručno filtrirali i upisali u fajl *filtered_synonyms.csv*. Končano, ove sinonime smo ubacili u ontologiju u fajl *with_synonyms.rdf*. Uveli smo novu tranzitivnu relaciju *hasSynonym*.
@@ -23,12 +24,14 @@ Nakon što smo ubacili podatke u ontologiju, uvideli smo da naša ontologija ne 
 S obzirom na to da su podaci o jelima većinski bili automatski generisani i ponekad nepotpuni, odlučili smo da u ontologiju detaljno razradimo jednu vrstu hrane. Opredelili smo se za picu. Krierali smo taksonomiju pica i deo nje je prikazan na slici XX:
 
 ![Slika XX - deo taksonomije o picama](onto.png)
+
 Slika XX - deo taksonomije o picama
+
 
 ## Upiti
 
 ## Interfejs aplikacije
 
 ## Autori
-##### Pavle Glušac, R2 15/2023
-##### Nevena Radešić, R2 2/2023
+#### Pavle Glušac, R2 15/2023
+#### Nevena Radešić, R2 2/2023
