@@ -19,12 +19,29 @@ Pokretanje aplikacija vrši se na sledeći način:
 ```shell
 python3 main.py
 ```
-// ovdje mozda, između ostalog, objasniti kojim redom se pokreću oni siclni fajlovi
+
+Pomenuti fajl *main.py* koristi ontologiju skladištenu u fajlu *pizza.rdf* u folderu *files*. Ta ontologija je kreirana pokretanjem nekoliko fajlova. Najpre su pokrenuti fajlovi iz foldera *ontology*:
+
+1. *add_dishes.py*
+2. *get_ingredients_colab.py*
+3. *add_ingredients.py*
+   
+Zatim su pokretani fajlovi iz foldera *synonyms*:
+
+5. *bert.py*
+6. *add_to_file.py*
+
+I na kraju fajlovi foldera *pizza*:
+
+7. *add_to_file.py*
+
 
 
 ## Ontologija
-Inicijalnu verziju ontologije kreirali smo upotrebom **_Protégé_** alata. Ona je sadržala samo klase *Dish* i *Ingredient*. *ObjectProperty* relacija *hasIngredient* je definisana tako da je tranzitivna i da su joj domen klase *Dish* i *Ingredient*, a *range* Ingredient. Ova jednostavna ontologija nalazi se u fajlu *empty_ontology_protege.rdf.*
-Zatim smo ubacili nekoliko poznatih jela i tako kreiran fajl sačuvali pod nazivom *dishes.rdf*. 
+Inicijalnu verziju ontologije kreirali smo upotrebom **_Protégé_** alata. Ona je sadržala samo klase *Dish* i *Ingredient*. *ObjectProperty* relacija *hasIngredient* je definisana tako da je tranzitivna i da su joj domen klase *Dish* i *Ingredient*, a *range* Ingredient. Ova jednostavna ontologija nalazi se u fajlu *empty_ontology_protege.rdf*. 
+
+Prvi korak u popunjavanju ontologije bio je ubacivanje jela. Najpre smo pokušali da ubacimo stotinu poznatih svetskih jela, ali smo zbog eksponencijalnog rasta broja sastojaka, prilikom ekstrahovanja istih, dobili grešku zbog dostignute maksimalne dubine rekurzije. Zbog toga smo odlučili da našu ontologiju inicijalno populišemo sa 20 jela. O samom procesu rekurzivnog ekstrahovanja sastojaka biće reči u nastavku.
+
 
 Sledeći korak bio je popunjavanje ontologije sastojcima već umetnutih jela. Za tu svrhu smo koristili Python biblioteku **_wikipedia_**. Ona nudi jednostavnu funkciju *summary(article, sentences)* za sumarizaciju. Prvi parametar je naziv članka na vikipediji. Drugi je broj rečenica koji želimo da koristimo za sumarizaciju. U našem slučaju, odabrali smo vrednost 3, jer se u člancima o hrani na vikipediji sastojci obično pojavljuju u 3 najbitnije rečenice. Kada smo doblili kratku reprezentaciju članka, bilo je potrebno ekstrahovati podatke iz te reprezentacije. To smo postigli upotrebom **UNI-NER** (*Universal Named Entity Recognition*) modela. To je manji jezički model (7 milijardi parametara) namenjen za prepoznavanje imenovanih entiteta. Funkcioniše tako što mu se prosledi tekst i naziv entiteta koji se ekstrahuje. U našem slučaju, prosleđeni tekst bio je sumarizovani članak, a naziv entiteta koji se pronalazi bio je *“Ingredient”*. Na slici XX vidmo primer kako UNI-NER funkcioniše:
 
@@ -35,7 +52,13 @@ UniNER možete probati i na [linku](https://universal-ner.github.io/linku)
 
 Nismo imali dovoljno memorije da pokrenemo ovaj model lokalno, te smo ga, umesto toga,  pokrenuli na **_Google Colab_**-u. Nakon što smo ekstrahovali podatke o svakom jelu iz liste, **rekurzivno** smo pozivali funkcije ekstrakcije nad dobijenim sastojcima i taj proces ponavljali dok god postoje podaci o sastojcima. Na taj način smo za svako jelo dobili graf sastojaka. Ubacivanjem tih podataka u postojeću ontologiju dobili smo fajl *ingredients.rdf*.
 
-Nakon što smo ubacili podatke u ontologiju, uvideli smo da naša ontologija ne prepoznaje sinonime. Na primer, sastojci *“sugar”*, *“sugars”* i *“table sugar”* su prepoznavani kao različiti iako predstavljaju isti sastojak. Taj problem smo najpre pokušali da rešimo korištenjem samo **_“word2vec”_** modela, ali on nije dao dovoljno dobre rezultate. Nakon toga smo pokrenuli **_BERT_** *sentence-transformer* za računanje sličnosti:  *“paraphrase-multilingual-MiniLM-L12-v2”*. Prepoznate sinonime sačuvali smo u fajlu *bert_synonyms.csv*. Ipak, ni ovi sinonimi nisu bili savršeno prepoznati, pa smo ih ručno filtrirali i upisali u fajl *filtered_synonyms.csv*. Končano, ove sinonime smo ubacili u ontologiju u fajl *with_synonyms.rdf*. Uveli smo novu tranzitivnu relaciju *hasSynonym*.
+Nakon što smo ubacili podatke u ontologiju, uvideli smo da naša ontologija ne prepoznaje sinonime. Na primer, sastojci *“sugar”*, *“sugars”* i *“table sugar”* su prepoznavani kao različiti iako predstavljaju isti sastojak. Taj problem smo najpre pokušali da rešimo korištenjem samo **_“word2vec”_** modela, ali on nije dao dovoljno dobre rezultate. Nakon toga smo pokrenuli **_BERT_** *sentence-transformer* za računanje sličnosti:  *“paraphrase-multilingual-MiniLM-L12-v2”*. Prepoznate sinonime sačuvali smo u fajlu *bert_synonyms.csv*. Neki od dobijenih sinonima prikazani su na slici XX:
+
+![Slika XX - primeri sinonima dobijenih upotrebom BERT modela](sinonimi.png)
+
+Slika XX - primeri sinonima dobijenih upotrebom BERT modela
+
+Ipak, ni ovi sinonimi nisu bili savršeno prepoznati, pa smo ih ručno filtrirali i upisali u fajl *filtered_synonyms.csv*. Končano, ove sinonime smo ubacili u ontologiju u fajl *with_synonyms.rdf*. Uveli smo novu tranzitivnu relaciju *hasSynonym*.
 
 S obzirom na to da su podaci o jelima većinski bili automatski generisani i ponekad nepotpuni, odlučili smo da u ontologiju detaljno razradimo jednu vrstu hrane. Opredelili smo se za picu. Krierali smo taksonomiju pica i deo nje je prikazan na slici XX:
 
