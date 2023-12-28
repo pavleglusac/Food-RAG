@@ -1,9 +1,24 @@
 # Food-RAG
-Food-RAG (ili kako se već zove) je projekat koji omogućava korisnicima da jednostavno istražuju sastojke različitih jela kroz postavljanje upita u prirodnom jeziku. U projektu je implementirana ontologija u formi RDF grafa koja čuva podatke o sastojcima i jelima. Korisnicima se prikazuje jednostavan interfejs i pruža im se mogućnost da postavljaju upite u četu, koji se kasnije prevode u SPARQL oblik i izvršavaju se nad kreiranom ontologijom. 
+Food-RAG je projekat koji omogućava korisnicima da jednostavno istražuju sastojke različitih jela kroz postavljanje upita u prirodnom jeziku. U projektu je implementirana ontologija u formi RDF grafa koja čuva podatke o sastojcima i jelima. Korisnicima se prikazuje jednostavan interfejs i pruža im se mogućnost da postavljaju upite u četu, koji se kasnije prevode u SPARQL oblik i izvršavaju se nad kreiranom ontologijom. 
 
 ## Instalacija
+Za instalaciju neophodno je koristiti Python verziju 3.10 ili noviju.
+Neophodni Python paketi nalaze se u requirements.txt fajlu, i mogu se instalirati sa
+```shell
+pip3 install -r requirements.txt
+```
 
+Takođe je neophodno imati ili imati .env fajl dodat u putanji projekta, ili postavljene sistemske varijable za OpenAI API ključeve.
+.env fajl prati sledeći format
+```
+OPENAI_API_KEY= <VAŠ API KLJUČ>
+OPENAI_ORGANIZATION= <VAŠA ORGANIZACIJA, UKOLIKO JE IMATE>
+```
 ## Pokretanje
+Pokretanje aplikacija vrši se na sledeći način:
+```shell
+python3 main.py
+```
 // ovdje mozda, između ostalog, objasniti kojim redom se pokreću oni siclni fajlovi
 
 
@@ -16,6 +31,7 @@ Sledeći korak bio je popunjavanje ontologije sastojcima već umetnutih jela. Za
 ![Slika XX - primer upotrebe UNI-NER-a](Uniner.png)
 Slika XX - primer upotrebe UNI-NER-a
 
+UniNER možete probati i na [linku](https://universal-ner.github.io/linku)
 
 Nismo imali dovoljno memorije da pokrenemo ovaj model lokalno, te smo ga, umesto toga,  pokrenuli na **_Google Colab_**-u. Nakon što smo ekstrahovali podatke o svakom jelu iz liste, **rekurzivno** smo pozivali funkcije ekstrakcije nad dobijenim sastojcima i taj proces ponavljali dok god postoje podaci o sastojcima. Na taj način smo za svako jelo dobili graf sastojaka. Ubacivanjem tih podataka u postojeću ontologiju dobili smo fajl *ingredients.rdf*.
 
@@ -29,8 +45,52 @@ Slika XX - deo taksonomije o picama
 
 
 ## Upiti
+Imavši u vidu da ciljna demografska grupa aplikacije ne postoji, već da je namenjena svima, neophodno je da njihovo korišćenje bude što jednostavnije. Klasičan način za interagovanje sa ontologijama jeste pomoću SPARQL upita, koji zahtevaju poznavanje rigidne sintakse i detalje same ontologije. Zbog toga, dodat je sloj apstrakcije u vidu velikog jezičkog modela koji bi na osnovu slobodnog teksta generisao SPARQL upite. Potom, ti upiti izvršavali bi se nad RDF grafom, i rezultati upita bili bi interpretirani od strane velikog jezičkog modela, kako bi se pretvorili u tekst koji je pogodan korisniku.
+Primer jednog od upita bio bi:
+```sparql
+PREFIX ns1: <http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#>
+
+SELECT ?ingredient
+WHERE {
+   ns1:biryani ns1:hasIngredient ?ingredient .
+}
+```
+Veliki jezički modeli koji su korišćeni GPT 4, GPT 3.5, kao i Code LLaMa. Za pokretanje Code LLaMa modela, neophodno je imati pokrenut [Ollama](https://ollama.ai/) server i preuzet "codellama:7b-instruct" model.
+U cilju pojednostavljenja toka podataka, korišćena je LangChain biblioteka za komunikaciju sa jezičkim modelima. Code LLaMa generalno generiše ispravne upite, međutim dešava se da često dodaje komentare na sam početak upita.
+Na primer, jedna od standardnih greški izgledala bi ovako:
+
+```sparql
+``Here is the query to get all the ingredients for biryani
+PREFIX ns1: <http://www.semanticweb.org/nevena/ontologies/2023/11/food_ontology.owl#>
+
+SELECT ?ingredient
+WHERE {
+   ns1:biryani ns1:hasIngredient ?ingredient .
+}
+``
+```
+
+Greške tog tipa su relativno česte i prate sličan format - dodato objašnjenje ili komentar na samom početku upita. Da bi se u ```GraphSparqlQAChain``` dodala funkcija koja čisti neželjene karaktere sa početka i sa kraja, odlučili smo se da je najbrže erešenje kopirati izvorni LangChain kod u zaseban fajl, i tamo implementirati dodate funkcionalnosti, što se nalazi u okviru ```sparql_chain.py``` fajla. Funkcija za čišćenje neželjenih izgleda ovako:
+
+```python
+def clean_sparql(sparql: str) -> str:
+    """Clean SPARQL query."""
+    sparql = sparql.replace("```", "")
+    # remove anything until either SELECT or UPDATE
+    sparql = sparql[max(sparql.find("SELECT"), sparql.find("UPDATE")) :]
+    # remove anything after the last }
+    sparql = sparql[: sparql.rfind("}") + 1]
+    return sparql
+```
+
+Ona svakako sadrži edge-case u kom na primer sam komentar LLMa sadrži ključne ruče UPDATE ili SELECT, što se dodatnim pretprocesiranjem može ispraviti. Najbolje rešenje bilo bi imati parser/validator upita, i svaki put pozivati LLM govoreći mu da ispravi greške koje validator vraća.
 
 ## Interfejs aplikacije
+
+Za izgradnju interfejsa opisane čet aplikacije korišćena je biblioteka [gradio](https://www.gradio.app/). Gradio je biblioteka koja omogućuje rapidno kreiranje jednostavnih interfejsa, i njena prvenstvena namena jesu ML aplikacije.
+Naš interfejs je prikazan na slici XX.
+
+![Slika XX - izgled interfejsa aplikacije](UI.png)
 
 ## Autori
 #### Pavle Glušac, R2 15/2023
